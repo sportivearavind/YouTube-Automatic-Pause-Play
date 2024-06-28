@@ -1,17 +1,37 @@
+let pausedByScript = false;
+
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    document.querySelector("video").pause();
-  } else {
-    document.querySelector("video").play();
+  const video = document.querySelector("video");
+  if (video) {
+    if (document.hidden) {
+      if (!video.paused) {
+        video.pause();
+        pausedByScript = true;
+      }
+    } else {
+      if (pausedByScript) {
+        video.play();
+        pausedByScript = false;
+      }
+    }
   }
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "checkVisibility") {
-    if (document.hidden) {
-      document.querySelector("video").pause();
-    } else {
-      document.querySelector("video").play();
+    const video = document.querySelector("video");
+    if (video) {
+      if (document.hidden) {
+        if (!video.paused) {
+          video.pause();
+          pausedByScript = true;
+        }
+      } else {
+        if (pausedByScript) {
+          video.play();
+          pausedByScript = false;
+        }
+      }
     }
   }
 });
