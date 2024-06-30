@@ -3,7 +3,7 @@
   "name": "YouTube Automatic Pause/Play",
   "version": "1.0",
   "description": "Automatically pauses and resumes YouTube videos based on the tab's visibility.",
-  "permissions": ["tabs", "activeTab"],
+  "permissions": ["tabs"],
   "background": {
     "service_worker": "background.js"
   },
